@@ -17,15 +17,23 @@ class SignupScreen extends GetView<AuthController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ResponsiveLayout(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 900;
+          
+          Widget formContent = Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isDesktop ? 64.0 : 32.0,
+                vertical: 32.0,
+              ),
+              child: Container(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                 const SizedBox(height: 60),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -36,39 +44,44 @@ class SignupScreen extends GetView<AuthController> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Center(
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF06B6D4).withOpacity(0.05),
-                      shape: BoxShape.circle,
+                if (!isDesktop) ...[
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF06B6D4).withOpacity(0.05),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.assignment_turned_in_rounded,
+                        size: 48,
+                        color: Color(0xFF06B6D4),
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.assignment_turned_in_rounded,
-                      size: 48,
-                      color: Color(0xFF06B6D4),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    'Join Todo App',
+                    style: GoogleFonts.outfit(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF1E293B),
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Join Todo App',
-                  style: GoogleFonts.outfit(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1E293B),
+                  const SizedBox(height: 8),
+                  Text(
+                    'The smartest way to organize your goals.',
+                    style: GoogleFonts.outfit(
+                      fontSize: 16,
+                      color: const Color(0xFF94A3B8),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'The smartest way to organize your goals.',
-                  style: GoogleFonts.outfit(
-                    fontSize: 16,
-                    color: const Color(0xFF94A3B8),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                  const SizedBox(height: 48),
+                ] else ...[
+                  const SizedBox(height: 24),
+                ],
                 const SizedBox(height: 48),
                 CustomTextField(
                   controller: emailController,
@@ -127,11 +140,76 @@ class SignupScreen extends GetView<AuthController> {
                     ),
                   ],
                 ),
-              ],
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-          ),
-        ),
+          );
+
+          if (isDesktop) {
+            return Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF06B6D4), Color(0xFF4F46E5)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(48.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Icon(
+                                Icons.assignment_turned_in_rounded,
+                                size: 64,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 32),
+                            Text(
+                              'Start Your Journey.',
+                              style: GoogleFonts.outfit(
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                height: 1.2,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Create an account and discover the smartest way to organize your goals and daily tasks.',
+                              style: GoogleFonts.outfit(
+                                fontSize: 18,
+                                color: Colors.white.withOpacity(0.8),
+                                height: 1.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: formContent),
+              ],
+            );
+          }
+
+          return SafeArea(child: formContent);
+        },
       ),
     );
   }

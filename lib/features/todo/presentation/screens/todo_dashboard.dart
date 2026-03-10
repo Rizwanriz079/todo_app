@@ -6,6 +6,7 @@ import 'package:hre/features/auth/presentation/controllers/auth_controller.dart'
 import 'package:hre/features/todo/data/models/task_model.dart';
 import 'package:hre/features/todo/presentation/controllers/task_controller.dart';
 import 'package:hre/core/widgets/responsive_layout.dart';
+import 'package:hre/features/todo/presentation/widgets/task_item.dart';
 
 class TodoDashboard extends GetView<TaskController> {
   const TodoDashboard({super.key});
@@ -77,7 +78,7 @@ class TodoDashboard extends GetView<TaskController> {
     );
   }
 
-  static void _showEditTaskDialog(BuildContext context, TodoTask task) {
+  static void showEditTaskDialog(BuildContext context, TodoTask task) {
     final titleController = TextEditingController(text: task.title);
     final descController = TextEditingController(text: task.description);
     final taskController = Get.find<TaskController>();
@@ -151,10 +152,8 @@ class TodoDashboard extends GetView<TaskController> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: ResponsiveLayout(
-        maxWidth: 1400,
-        child: Column(
-          children: [
+      body: Column(
+        children: [
           Container(
             padding: const EdgeInsets.only(top: 60, left: 24, right: 24, bottom: 32),
             decoration: BoxDecoration(
@@ -323,8 +322,7 @@ class TodoDashboard extends GetView<TaskController> {
               );
             }),
           ),
-          ],
-        ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddTaskDialog(context),
@@ -333,54 +331,6 @@ class TodoDashboard extends GetView<TaskController> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: const Icon(Icons.add_rounded, size: 32),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 20,
-              offset: const Offset(0, -5),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildNavItem(Icons.home_rounded, 'Home', true),
-                _buildNavItem(Icons.calendar_today_rounded, 'Calendar', false),
-                _buildNavItem(Icons.analytics_rounded, 'Stats', false),
-                _buildNavItem(Icons.person_rounded, 'Profile', false),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, String label, bool isActive) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          color: isActive ? const Color(0xFF4F46E5) : const Color(0xFF94A3B8),
-          size: 26,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: GoogleFonts.outfit(
-            fontSize: 12,
-            fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
-            color: isActive ? const Color(0xFF4F46E5) : const Color(0xFF94A3B8),
-          ),
-        ),
-      ],
     );
   }
 
@@ -410,141 +360,6 @@ class TodoDashboard extends GetView<TaskController> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskItem extends StatelessWidget {
-  final TodoTask task;
-
-  const TaskItem({super.key, required this.task});
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = Get.find<TaskController>();
-    
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: Border.all(color: Colors.grey.shade100),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: IntrinsicHeight(
-          child: Row(
-            children: [
-              Container(
-                width: 6,
-                color: task.isCompleted ? const Color(0xFF10B981) : Colors.indigo.shade400,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => controller.toggleTaskStatus(task),
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: task.isCompleted 
-                                ? const Color(0xFF10B981).withOpacity(0.1) 
-                                : const Color(0xFF64748B).withOpacity(0.05),
-                            border: Border.all(
-                              color: task.isCompleted 
-                                  ? const Color(0xFF10B981) 
-                                  : const Color(0xFFE2E8F0),
-                              width: 2,
-                            ),
-                          ),
-                          child: Icon(
-                            task.isCompleted ? Icons.check_rounded : null,
-                            size: 16,
-                            color: const Color(0xFF059669),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              task.title,
-                              style: GoogleFonts.outfit(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                decoration: task.isCompleted ? TextDecoration.lineThrough : null,
-                                color: task.isCompleted ? const Color(0xFF94A3B8) : const Color(0xFF1E293B),
-                              ),
-                            ),
-                            if (task.description != null && task.description!.isNotEmpty) ...[
-                              const SizedBox(height: 4),
-                              Text(
-                                task.description!,
-                                style: GoogleFonts.outfit(
-                                  fontSize: 14,
-                                  color: const Color(0xFF64748B),
-                                  decoration: task.isCompleted ? TextDecoration.lineThrough : null,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                Icon(Icons.calendar_today_rounded, size: 12, color: const Color(0xFF94A3B8)),
-                                const SizedBox(width: 4),
-                                Text(
-                                  DateFormat('MMM d, yyyy').format(task.createdAt),
-                                  style: GoogleFonts.outfit(
-                                    fontSize: 12,
-                                    color: const Color(0xFF94A3B8),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit_note_rounded, color: Colors.indigo),
-                            onPressed: () => TodoDashboard._showEditTaskDialog(context, task),
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                          ),
-                          const SizedBox(width: 12),
-                          IconButton(
-                            icon: const Icon(Icons.delete_outline_rounded, color: Color(0xFFF43F5E)),
-                            onPressed: () => controller.deleteTask(task.id!),
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
