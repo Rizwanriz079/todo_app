@@ -152,6 +152,7 @@ class TodoDashboard extends GetView<TaskController> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: ResponsiveLayout(
+        maxWidth: 1400,
         child: Column(
           children: [
           Container(
@@ -290,12 +291,30 @@ class TodoDashboard extends GetView<TaskController> {
                   Expanded(
                     child: RefreshIndicator(
                       onRefresh: () => controller.fetchTasks(),
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        itemCount: controller.tasks.length,
-                        itemBuilder: (context, index) {
-                          final task = controller.tasks[index];
-                          return TaskItem(task: task);
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          if (constraints.maxWidth > 600) {
+                            return GridView.builder(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 400,
+                                childAspectRatio: 2.5,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 0,
+                              ),
+                              itemCount: controller.tasks.length,
+                              itemBuilder: (context, index) {
+                                return TaskItem(task: controller.tasks[index]);
+                              },
+                            );
+                          }
+                          return ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            itemCount: controller.tasks.length,
+                            itemBuilder: (context, index) {
+                              return TaskItem(task: controller.tasks[index]);
+                            },
+                          );
                         },
                       ),
                     ),
