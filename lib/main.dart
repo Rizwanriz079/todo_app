@@ -19,7 +19,6 @@ void main() async {
     debugPrint('Firebase Initialization Error: $e');
   }
 
-  // Dependency Injection using GetX
   Get.put(AuthService());
   Get.put(AuthController());
   Get.lazyPut(() => TaskController()); 
