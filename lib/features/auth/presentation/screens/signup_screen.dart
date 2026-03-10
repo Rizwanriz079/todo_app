@@ -130,6 +130,7 @@ class SignupScreen extends GetView<AuthController> {
               ],
             ),
           ),
+          ),
         ),
       ),
     );
