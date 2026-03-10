@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:hre/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:hre/features/todo/data/models/task_model.dart';
 import 'package:hre/features/todo/presentation/controllers/task_controller.dart';
+import 'package:hre/core/widgets/responsive_layout.dart';
 
 class TodoDashboard extends GetView<TaskController> {
   const TodoDashboard({super.key});
@@ -150,8 +151,9 @@ class TodoDashboard extends GetView<TaskController> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
+      body: ResponsiveLayout(
+        child: Column(
+          children: [
           Container(
             padding: const EdgeInsets.only(top: 60, left: 24, right: 24, bottom: 32),
             decoration: BoxDecoration(
@@ -311,6 +313,54 @@ class TodoDashboard extends GetView<TaskController> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: const Icon(Icons.add_rounded, size: 32),
       ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(Icons.home_rounded, 'Home', true),
+                _buildNavItem(Icons.calendar_today_rounded, 'Calendar', false),
+                _buildNavItem(Icons.analytics_rounded, 'Stats', false),
+                _buildNavItem(Icons.person_rounded, 'Profile', false),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, bool isActive) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          color: isActive ? const Color(0xFF4F46E5) : const Color(0xFF94A3B8),
+          size: 26,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: GoogleFonts.outfit(
+            fontSize: 12,
+            fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+            color: isActive ? const Color(0xFF4F46E5) : const Color(0xFF94A3B8),
+          ),
+        ),
+      ],
     );
   }
 

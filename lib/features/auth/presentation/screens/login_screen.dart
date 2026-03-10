@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:hre/core/widgets/custom_components.dart';
 import 'package:hre/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:hre/core/widgets/responsive_layout.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends GetView<AuthController> {
@@ -17,8 +18,9 @@ class LoginScreen extends GetView<AuthController> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        child: ResponsiveLayout(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Form(
             key: formKey,
             child: Column(
