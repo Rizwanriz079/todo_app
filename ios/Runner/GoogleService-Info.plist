@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>278884199301-smanpps7v1qvcj223uvn73etmopp80q8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.278884199301-smanpps7v1qvcj223uvn73etmopp80q8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCGzgC-HlenRM3dX4wp7rienRFPc03Pg2g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>278884199301</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hre.todo.hre</string>
+	<key>PROJECT_ID</key>
+	<string>hreblr</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hreblr.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:278884199301:ios:b743be42fa715ae4c0b2ec</string>
+	<key>DATABASE_URL</key>
+	<string>https://hreblr-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>

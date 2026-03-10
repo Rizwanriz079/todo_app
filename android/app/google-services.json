@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "278884199301",
+    "firebase_url": "https://hreblr-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "hreblr",
+    "storage_bucket": "hreblr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278884199301:android:b5103d28631b7284c0b2ec",
+        "android_client_info": {
+          "package_name": "com.hre.todo.hre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278884199301-divpapgfs64654chuffp5s0ddedv97i7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATyxtPgOLv_1_Un8febTeEY36EZl72zVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278884199301-divpapgfs64654chuffp5s0ddedv97i7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "278884199301-smanpps7v1qvcj223uvn73etmopp80q8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hre.todo.hre"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
