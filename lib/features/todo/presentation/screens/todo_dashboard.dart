@@ -302,11 +302,12 @@ class TodoDashboard extends GetView<TaskController> {
                   ),
                 ],
               );
-            }),
-          ),
-        ],
-      ),
+            });
+          },
+        ),
+      ],
     ),
+  ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddTaskDialog(context),
         backgroundColor: const Color(0xFF4F46E5),
